@@ -70,7 +70,7 @@ awk 'NR>1 {print $1"\t"$2"\t"$6"\tTAD_"NR-1"\t1000\t."}' $PROJ_DIR/H/tads_genome
 
 ```
 
-### Contact Matrix Extraction and Compartment Analysis
+### Contact Matrix Extraction
 
 ```
 #-----------------------------------------------
@@ -108,7 +108,7 @@ java -Xmx32g -jar $HIC_TOOLS/juicer_tools.jar dump norm KR $PROJ_DIR/inter_30.hi
 
 
 ```
-
+### Compartment Analysis
 ```
 #=============================================
 # A/B Compartment Analysis Using Eigenvector Decomposition
