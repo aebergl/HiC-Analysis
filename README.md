@@ -25,7 +25,7 @@ mv juicer_tools_2.17.00.jar scripts/common/juicer_tools.jar
 ```
 PROJ_DIR="/Users/berglund.anders/Documents/USR/STORY/HiC/"
 HIC_TOOLS="/Users/berglund.anders/Documents/SOFTWARE/hic_tools/juicer/scripts/common/"
-
+HIC_TOOLS="/Users/berglund.anders/SOFTWARE/hic_tools/juicer/scripts/common/"
 
 # Run Arrowhead algorithm to detect TADs genome-wide
 java -Xmx32g -jar /Users/berglund.anders/Documents/SOFTWARE/hic_tools/juicer/scripts/common/juicer_tools.jar arrowhead \
@@ -42,8 +42,11 @@ awk 'NR>1 {print $1"\t"$2"\t"$6"\tTAD_"NR-1"\t1000\t."}' \
 
 
 # C sample  
+
+# Medium resolution
 java -Xmx32g -jar $HIC_TOOLS/juicer_tools.jar arrowhead -c chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX -m 5000 -r 25000 -k KR $PROJ_DIR/C/C_inter_30.hic $PROJ_DIR/C/tads_genome_wide
 
+# High resolution
 java -Xmx32g -jar $HIC_TOOLS/juicer_tools.jar arrowhead -c chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX -m 2000 -r 5000 -k KR $PROJ_DIR/C/C_inter_30.hic $PROJ_DIR/C/tads_genome_wide
 
 
@@ -122,7 +125,10 @@ java -Xmx32g -jar ~/hic_tools/juicer/scripts/common/juicer_tools.jar eigenvector
     BP 100000 \                              # Resolution: 100kb bins (optimal for compartments)
     ~/hic_project/aligned/chr1_eigenvector_100kb.txt  # Output eigenvector values
  
-java -Xmx128g -jar $HIC_TOOLS/juicer_tools.jar eigenvector -p KR $PROJ_DIR/inter_30.hic 1 BP 250000 $PROJ_DIR/compartments/chr1_eigenvector_250kb.txt 
+java -Xmx128g -jar $HIC_TOOLS/juicer_tools.jar eigenvector -p KR $PROJ_DIR/C/C_inter_30.hic 1 BP 250000 $PROJ_DIR/compartments/chr1_eigenvector_250kb.txt 
+
+java -Xmx128g -jar $HIC_TOOLS/juicer_tools.jar eigenvector -p KR $PROJ_DIR/C/C_inter_30.hic 1 BP 250000 C_250kb_Chr1_Eig.txt
+java -Xmx128g -jar $HIC_TOOLS/juicer_tools.jar eigenvector -p KR $PROJ_DIR/H/H_inter_30.hic 1 BP 250000 H_250kb_Chr1_Eig.txt
 
 # Note: Positive eigenvector values = A compartment (active chromatin)
 #       Negative eigenvector values = B compartment (inactive chromatin)
@@ -140,6 +146,8 @@ java -Xmx32g -jar ~/hic_tools/juicer/scripts/common/juicer_tools.jar pearsons \
     ~/hic_project/aligned/chr1_pearsons_100kb.txt  # Output correlation matrix
 
 java -Xmx32g -jar $HIC_TOOLS/juicer_tools.jar/juicer_tools.jar pearsons KR $PROJ_DIR/inter_30.hic 1 BP 250000 $PROJ_DIR/compartments/chr1_pearsons_250kb.txt 
+
+java -Xmx128g -jar $HIC_TOOLS/juicer_tools.jar pearsons KR $PROJ_DIR/C/C_inter_30.hic 1 BP 250000 C_250kb_Chr1_Eig.txt
  
 # Note: Pearson correlation reveals compartmental organization
 #       - Strong positive correlations indicate same compartment type
